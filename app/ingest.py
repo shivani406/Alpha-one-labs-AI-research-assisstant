@@ -14,7 +14,15 @@ from typing import List
 
 from langchain_community.document_loaders import PyPDFLoader
 
-def ingest_pdf(pdf_path :str):
+def ingest_pdf(pdf_path :str, user_id ):
     loader = PyPDFLoader(pdf_path)
     documents = loader.load()
+
+    # add user_id to the metadata
+    for doc in documents:
+        doc.metadata["user_id"] = user_id
+
     return documents
+
+docs = ingest_pdf("E:\College study material\SEM-3\starting pages community service.pdf")
+print(docs)

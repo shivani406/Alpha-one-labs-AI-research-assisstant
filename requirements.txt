@@ -2,3 +2,6 @@ langchain
 langchain-community
 pypdf
 langchain-text-splitters
+langchain-google-genai
+langchain-chroma
+python-dotenv
