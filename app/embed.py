@@ -1,6 +1,6 @@
 from typing import List,Dict
 from langchain_core.documents import Document
-from langchain_google_genai import GoogleGenerativeAIEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings
 import chromadb
 from config import settings
 
@@ -22,8 +22,8 @@ def generate_embeddings(chunks : List[Document]) -> List[dict]:
     - text
     """
 
-    embedding_model = GoogleGenerativeAIEmbeddings(model = "models/embedding-001")
-
+    embedding_model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+    
     #Extract raw text from each chunk
     texts: List[str] = []
     for chunk in chunks:
