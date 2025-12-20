@@ -1,7 +1,6 @@
 from typing import List,Dict
 from langchain_core.documents import Document
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
-from langchain_chroma import Chroma
 import chromadb
 from config import settings
 

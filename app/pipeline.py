@@ -1,5 +1,5 @@
 from ingest import ingest_pdf
-from chunk import chunk_documents
+from chunking import chunk_documents
 from embed import generate_embeddings , store_embeddings
 from retrieve import retrieve_context
 from ques_and_ans import generate_final_prompt, ask_llm
