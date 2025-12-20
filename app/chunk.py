@@ -25,11 +25,4 @@ def chunk_documents(documents : List[Document ]) -> List[Document]:
 
     return chunked_document  
 
-# from ingest import ingest_pdf
-# from chunk import chunk_documents
 
-# docs = ingest_pdf("E:\College study material\SEM-3\starting pages community service.pdf")
-# chunks = chunk_documents(docs)
-
-# print(type(chunks[0]))
-# print(chunks[0].metadata)

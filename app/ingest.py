@@ -24,5 +24,3 @@ def ingest_pdf(pdf_path :str, user_id ):
 
     return documents
 
-docs = ingest_pdf("E:\College study material\SEM-3\starting pages community service.pdf")
-print(docs)
