@@ -3,6 +3,7 @@ from typing import List
 from langchain_core.documents import Document
 from config import settings
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
+from chunking import compress_chunk
 
 def retrieve_context(user_prompt: str, user_id, top_k: int = 3  ) -> List[Document]:
 
@@ -33,5 +34,50 @@ def retrieve_context(user_prompt: str, user_id, top_k: int = 3  ) -> List[Docume
     for text , metadata in zip(documents , metadata):
         if text:
             retrieved_documents.append(Document(page_content= text, metadata = metadata))
-            
+
+    
+    #Compress the retrieved_documents
+
+    compressed_documents: List[Document] = []
+
+    for doc in retrieved_documents:
+        compressed_doc = compress_chunk(single_chunk=doc, query=user_prompt, top_n=3)
+        compressed_documents.append(compressed_doc)
+        
+    return compressed_documents
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     return retrieved_documents
+

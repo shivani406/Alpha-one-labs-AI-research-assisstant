@@ -63,13 +63,13 @@ def compress_chunk(single_chunk: Document, query: str, top_n: int=3) -> Document
 
     return Document(page_content = compressed_text, metadata = single_chunk.metadata)
 
-def final_compressed_chunks(chunked_documents: List[Document], query: str, top_n: int = 3) -> List[Document]:
+# def final_compressed_chunks(chunked_documents: List[Document], query: str, top_n: int = 3) -> List[Document]:
 
-    compressed_documents: List[Document] = []
+#     compressed_documents: List[Document] = []
 
-    for chunk in chunked_documents:
-        compressed_doc = compress_chunk(single_chunk = chunk, query = query, top_n = top_n)
-        compressed_documents.append(compressed_doc)
+#     for chunk in chunked_documents:
+#         compressed_doc = compress_chunk(single_chunk = chunk, query = query, top_n = top_n)
+#         compressed_documents.append(compressed_doc)
 
-    return compressed_documents
+#     return compressed_documents
 
