@@ -4,7 +4,7 @@ from langchain_core.documents import Document
 from config import settings
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 
-def retrieve_context(user_prompt: str, user_id, top_k: int = 5  ) -> List[Document]:
+def retrieve_context(user_prompt: str, user_id, top_k: int = 3  ) -> List[Document]:
 
     #convert user's prompt into embeddings
     embeddings_model = GoogleGenerativeAIEmbeddings(model = "models/embedding-001")
@@ -33,4 +33,5 @@ def retrieve_context(user_prompt: str, user_id, top_k: int = 5  ) -> List[Docume
     for text , metadata in zip(documents , metadata):
         if text:
             retrieved_documents.append(Document(page_content= text, metadata = metadata))
+            
     return retrieved_documents

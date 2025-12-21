@@ -5,3 +5,6 @@ langchain-text-splitters
 langchain-google-genai
 langchain-chroma
 python-dotenv
+sentence-transformers 
+langchain-huggingface
+nltk
