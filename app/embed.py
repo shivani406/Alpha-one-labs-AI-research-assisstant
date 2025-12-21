@@ -4,12 +4,6 @@ from langchain_community.embeddings import HuggingFaceEmbeddings
 import chromadb
 from config import settings
 
-# vector_store = Chroma(
-#     collection_name="example_collection",
-#     embedding_function=embeddings,
-#     persist_directory="./chroma_langchain_db",  # Where to save data locally, remove if not necessary
-# )
-
 
 def generate_embeddings(chunks : List[Document]) -> List[dict]:
     """
@@ -23,7 +17,7 @@ def generate_embeddings(chunks : List[Document]) -> List[dict]:
     """
 
     embedding_model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
-    
+
     #Extract raw text from each chunk
     texts: List[str] = []
     for chunk in chunks:

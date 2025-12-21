@@ -5,7 +5,7 @@ from config import settings
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from chunking import compress_chunk
 
-def retrieve_context(user_prompt: str, user_id, top_k: int = 3  ) -> List[Document]:
+def retrieve_context(user_prompt: str, user_id, top_k: int = 5  ) -> List[Document]:
 
     #convert user's prompt into embeddings
     embeddings_model = GoogleGenerativeAIEmbeddings(model = "models/embedding-001")
@@ -26,17 +26,17 @@ def retrieve_context(user_prompt: str, user_id, top_k: int = 3  ) -> List[Docume
     top_k_results = collection.query (query_embeddings=[user_prompt_embeddings], n_results= top_k, where = filter )
 
     # Reconstruct the langchain document with the top_k_results
-    retrieved_documents = List[Document] = []
+    retrieved_documents: List[Document] = []
 
     documents = top_k_results.get("documents" , [[]])[0]
     metadata = top_k_results.get("metadatas", [[]])[0]
 
-    for text , metadata in zip(documents , metadata):
+    for text , meta in zip(documents , metadata):
         if text:
-            retrieved_documents.append(Document(page_content= text, metadata = metadata))
+            retrieved_documents.append(Document(page_content= text, metadata = meta))
 
     
-    #Compress the retrieved_documents
+    #Compress the top_k_retrieved_documents
 
     compressed_documents: List[Document] = []
 
