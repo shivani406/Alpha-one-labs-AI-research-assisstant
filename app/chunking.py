@@ -4,7 +4,8 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from sentence_transformers import SentenceTransformer,  util
 from nltk.tokenize import sent_tokenize
 
-"""
+def chunk_documents(documents : List[Document ]) -> List[Document]:
+    """
     Split documents into smaller chunks suitable for embeddings and retrieval.
 
     Args:
@@ -12,22 +13,12 @@ from nltk.tokenize import sent_tokenize
 
     Returns:
         List[Document]: Chunked documents with preserved metadata
-"""
+    """
 
-
-def chunk_documents(documents : List[Document ]) -> List[Document]:
-    splitter = RecursiveCharacterTextSplitter(
-        chunk_size = 800,
-        chunk_overlap = 150,
-        separators= ["\n\n", "\n", ". ", " "]
-    )
+    splitter = RecursiveCharacterTextSplitter( chunk_size = 800, chunk_overlap = 150, separators= ["\n\n", "\n", ". ", " "])
     chunked_document = splitter.split_documents(documents)
 
     return chunked_document  
-
-
-
-
 
 def compress_chunk(single_chunk: Document, query: str, top_n: int=3) -> Document:
     """

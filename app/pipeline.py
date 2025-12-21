@@ -28,7 +28,7 @@ def ask_question (user_prompt: str, user_id, top_k: int = 5 ) -> str:
     Retrieves context and generates answer.
 
     """
-    # Retreive relevant chunks
+    # Retreive relevant compressed chunks
     context_docs = retrieve_context(user_prompt = user_prompt, user_id = user_id, top_k = top_k)
 
     if not context_docs:

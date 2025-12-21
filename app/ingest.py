@@ -1,8 +1,12 @@
 """Converting the user's PDF into text for processing"""
 from langchain_community.document_loaders import PyPDFLoader
 from typing import List
+from langchain_core.documents import Document
+from langchain_community.document_loaders import PyPDFLoader
 
-"""
+def ingest_pdf(pdf_path :str, user_id )-> List[Document]:
+
+    """
     Load a PDF file and return LangChain Document objects.
 
     Args:
@@ -10,11 +14,7 @@ from typing import List
 
     Returns:
         List[Document]: List of documents (one per page)
-"""
-
-from langchain_community.document_loaders import PyPDFLoader
-
-def ingest_pdf(pdf_path :str, user_id ):
+    """
     loader = PyPDFLoader(pdf_path)
     documents = loader.load()
 
