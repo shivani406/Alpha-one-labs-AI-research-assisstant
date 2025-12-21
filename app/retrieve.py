@@ -4,12 +4,13 @@ from langchain_core.documents import Document
 from config import settings
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from chunking import compress_chunk
+from sentence_transformers import SentenceTransformer
 
 def retrieve_context(user_prompt: str, user_id, top_k: int = 5  ) -> List[Document]:
 
     #convert user's prompt into embeddings
-    embeddings_model = GoogleGenerativeAIEmbeddings(model = "models/embedding-001")
-    user_prompt_embeddings = embeddings_model.embed_query(user_prompt)
+    embeddings_model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
+    user_prompt_embeddings = embeddings_model.encode(user_prompt)
 
     #connect to the chroma client
 
