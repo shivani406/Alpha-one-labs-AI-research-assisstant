@@ -39,7 +39,8 @@ def generate_embeddings(chunks : List[Document]) -> List[dict]:
         record = {
             "id": f"{user_id}_{source}_page{page}_chunk{index}",
             "embedding": vector,
-            "metadata": chunk.metadata
+            "metadata": chunk.metadata,            
+            "document": chunk.page_content
         }
 
         embedded_records.append(record)
@@ -64,16 +65,18 @@ def store_embeddings(embedded_records: List[Dict]):
     ids = []
     embeddings = []
     metadatas = []
+    documents = []
 
     for record in embedded_records:
         ids.append(record["id"])
         embeddings.append(record["embedding"])
         metadatas.append(record["metadata"])
-
+        documents.append(record["document"])
     collection.add(
         ids=ids,
         embeddings=embeddings,
-        metadatas=metadatas
+        metadatas=metadatas,
+        documents=documents
     )
 
     return collection

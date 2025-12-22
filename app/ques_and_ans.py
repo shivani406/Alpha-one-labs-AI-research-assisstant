@@ -11,7 +11,7 @@ def generate_final_prompt (user_prompt: str, context : List[Document]) -> str:
     final_prompt = f"""
         You are an AI research assistant.
 
-        Answer the question strictly using the provided context below.
+        Answer the question using the provided context below.
         If the answer is not present in the context, say:
         "I do not have enough information to answer this."
 
@@ -27,7 +27,7 @@ def generate_final_prompt (user_prompt: str, context : List[Document]) -> str:
     return final_prompt
 
 def ask_llm(final_prompt: str) -> str:
-    llm = ChatGoogleGenerativeAI(model = "gemini-1.5-flash")
+    llm = ChatGoogleGenerativeAI(model = "gemini-2.5-flash")
     response = llm.invoke(final_prompt)
 
     return response.content

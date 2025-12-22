@@ -8,3 +8,4 @@ python-dotenv
 sentence-transformers 
 langchain-huggingface
 nltk
+google-generativeai

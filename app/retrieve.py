@@ -2,7 +2,6 @@ import chromadb
 from typing import List
 from langchain_core.documents import Document
 from config import settings
-from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from chunking import compress_chunk
 from sentence_transformers import SentenceTransformer
 
@@ -25,7 +24,7 @@ def retrieve_context(user_prompt: str, user_id, top_k: int = 5  ) -> List[Docume
 
     # Fetch data from chromadb 
     top_k_results = collection.query (query_embeddings=[user_prompt_embeddings], n_results= top_k, where = filter )
-
+   
     # Reconstruct the langchain document with the top_k_results
     retrieved_documents: List[Document] = []
 
