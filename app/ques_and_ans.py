@@ -3,10 +3,11 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from config import settings
 from langchain_core.documents import Document
 
-def generate_final_prompt (user_prompt: str, context : List[Document]) -> str:
+
+def generate_final_prompt(user_prompt: str, context: List[Document]) -> str:
 
     context_text = "\n\n".join(
-    doc.page_content for doc in context)
+        doc.page_content for doc in context)
 
     final_prompt = f"""
         You are an AI research assistant.
@@ -23,12 +24,12 @@ def generate_final_prompt (user_prompt: str, context : List[Document]) -> str:
 
         Answer:
         """.strip()
-    
+
     return final_prompt
 
+
 def ask_llm(final_prompt: str) -> str:
-    llm = ChatGoogleGenerativeAI(model = "gemini-2.5-flash")
+    llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash")
     response = llm.invoke(final_prompt)
 
     return response.content
-    

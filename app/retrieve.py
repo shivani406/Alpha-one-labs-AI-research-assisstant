@@ -5,15 +5,18 @@ from config import settings
 from chunking import compress_chunk
 from sentence_transformers import SentenceTransformer
 
-def retrieve_context(user_prompt: str, user_id, top_k: int = 5  ) -> List[Document]:
 
-    #convert user's prompt into embeddings
-    embeddings_model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
+def retrieve_context(user_prompt: str, user_id, top_k: int = 5) -> List[Document]:
+
+    # convert user's prompt into embeddings
+    embeddings_model = SentenceTransformer(
+        "sentence-transformers/all-MiniLM-L6-v2")
     user_prompt_embeddings = embeddings_model.encode(user_prompt)
 
-    #connect to the chroma client
+    # connect to the chroma client
 
-    client = chromadb.CloudClient(api_key = settings.CHROMA_API_KEY , tenant=settings.CHROMA_TENANT, database=settings.CHROMA_DATABASE)
+    client = chromadb.CloudClient(api_key=settings.CHROMA_API_KEY,
+                                  tenant=settings.CHROMA_TENANT, database=settings.CHROMA_DATABASE)
     collection = client.get_collection(settings.CHROMA_COLLECTION)
 
     # Adding the filtering query which will fetch only the user's data
@@ -22,62 +25,29 @@ def retrieve_context(user_prompt: str, user_id, top_k: int = 5  ) -> List[Docume
     else:
         filter = None
 
-    # Fetch data from chromadb 
-    top_k_results = collection.query (query_embeddings=[user_prompt_embeddings], n_results= top_k, where = filter )
-   
+    # Fetch data from chromadb
+    top_k_results = collection.query(
+        query_embeddings=[user_prompt_embeddings], n_results=top_k, where=filter)
+
     # Reconstruct the langchain document with the top_k_results
     retrieved_documents: List[Document] = []
 
-    documents = top_k_results.get("documents" , [[]])[0]
+    documents = top_k_results.get("documents", [[]])[0]
     metadata = top_k_results.get("metadatas", [[]])[0]
 
-    for text , meta in zip(documents , metadata):
+    for text, meta in zip(documents, metadata):
         if text:
-            retrieved_documents.append(Document(page_content= text, metadata = meta))
+            retrieved_documents.append(
+                Document(page_content=text, metadata=meta))
 
-    
-    #Compress the top_k_retrieved_documents
+    # Compress the top_k_retrieved_documents
 
     compressed_documents: List[Document] = []
 
     for doc in retrieved_documents:
-        compressed_doc = compress_chunk(single_chunk=doc, query=user_prompt, top_n=3)
+        compressed_doc = compress_chunk(
+            single_chunk=doc, query=user_prompt, top_n=3)
         compressed_documents.append(compressed_doc)
-        
+
     return compressed_documents
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    return retrieved_documents
 

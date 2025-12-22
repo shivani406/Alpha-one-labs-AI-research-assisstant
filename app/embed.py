@@ -1,11 +1,11 @@
-from typing import List,Dict
+from typing import List, Dict
 from langchain_core.documents import Document
 from langchain_community.embeddings import HuggingFaceEmbeddings
 import chromadb
 from config import settings
 
 
-def generate_embeddings(chunks : List[Document]) -> List[dict]:
+def generate_embeddings(chunks: List[Document]) -> List[dict]:
     """
     Generate embeddings for document chunks.
 
@@ -16,9 +16,10 @@ def generate_embeddings(chunks : List[Document]) -> List[dict]:
     - text
     """
 
-    embedding_model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+    embedding_model = HuggingFaceEmbeddings(
+        model_name="sentence-transformers/all-MiniLM-L6-v2")
 
-    #Extract raw text from each chunk
+    # Extract raw text from each chunk
     texts: List[str] = []
     for chunk in chunks:
         texts.append(chunk.page_content)
@@ -26,7 +27,7 @@ def generate_embeddings(chunks : List[Document]) -> List[dict]:
     # Generate embeddings
     vectors = embedding_model.embed_documents(texts)
 
-    #Combine these embeddings again with metadata
+    # Combine these embeddings again with metadata
     embedded_records: List[Dict] = []
     for index in range(len(chunks)):
         chunk = chunks[index]
@@ -35,11 +36,11 @@ def generate_embeddings(chunks : List[Document]) -> List[dict]:
         source = chunk.metadata["source"]
         page = chunk.metadata["page"]
 
-        #generate each record
+        # generate each record
         record = {
             "id": f"{user_id}_{source}_page{page}_chunk{index}",
             "embedding": vector,
-            "metadata": chunk.metadata,            
+            "metadata": chunk.metadata,
             "document": chunk.page_content
         }
 

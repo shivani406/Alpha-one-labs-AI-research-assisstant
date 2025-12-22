@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 
 load_dotenv()  # Loads .env into environment
 
+
 class Settings:
     GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
@@ -10,5 +11,6 @@ class Settings:
     CHROMA_TENANT = os.getenv("CHROMA_TENANT")
     CHROMA_DATABASE = os.getenv("CHROMA_DATABASE")
     CHROMA_COLLECTION = os.getenv("CHROMA_COLLECTION")
+
 
 settings = Settings()

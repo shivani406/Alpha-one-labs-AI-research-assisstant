@@ -4,8 +4,8 @@ from typing import List
 from langchain_core.documents import Document
 from langchain_community.document_loaders import PyPDFLoader
 
-def ingest_pdf(pdf_path :str, user_id )-> List[Document]:
 
+def ingest_pdf(pdf_path: str, user_id) -> List[Document]:
     """
     Load a PDF file and return LangChain Document objects.
 
@@ -23,4 +23,3 @@ def ingest_pdf(pdf_path :str, user_id )-> List[Document]:
         doc.metadata["user_id"] = user_id
 
     return documents
-
