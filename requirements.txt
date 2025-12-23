@@ -9,3 +9,6 @@ sentence-transformers
 langchain-huggingface
 nltk
 google-generativeai
+streamlit
+chromadb
+pypdf2
